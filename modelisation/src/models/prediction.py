@@ -13,8 +13,8 @@ def predict_total_validation(df):
     france_holidays = holidays.France()
     df['jour_ferie'] = df.index.to_series().apply(lambda d: d in france_holidays).astype(int)
 
-    scaler_dir = 'model/scaler'
-    model_dir = 'model'
+    scaler_dir = 'models/scaler'
+    model_dir = 'models'
     scaler = load(os.path.join(scaler_dir, "scaler_total_validation.joblib"))
 
     data = scaler.transform(df['NB_VALD'].values.reshape(-1, 1))
@@ -33,13 +33,13 @@ def predict_titre_validation(df):
     france_holidays = holidays.France()
     df['jour_ferie'] = df.index.to_series().apply(lambda d: d in france_holidays).astype(int)
 
-    scaler_dir = 'model/scaler'
-    model_dir = 'model'
+    scaler_dir = 'models/scaler'
+    model_dir = 'models'
 
     data = []
     scaler_dict = {}
 
-    unique_titre = np.load("model/CATEGORIE_TITRE.npy")
+    unique_titre = np.load("models/CATEGORIE_TITRE.npy")
     for titre in unique_titre:
         df_filter = df[df["CATEGORIE_TITRE"] == titre]
         assert (len(df_filter) >= 45)
@@ -65,13 +65,13 @@ def predict_arret_validation(df):
     france_holidays = holidays.France()
     df['jour_ferie'] = df.index.to_series().apply(lambda d: d in france_holidays).astype(int)
 
-    scaler_dir = 'model/scaler'
-    model_dir = 'model'
+    scaler_dir = 'models/scaler'
+    model_dir = 'models'
 
     data = []
     scaler_dict = {}
 
-    unique_arret = np.load("model/LIBELLE_ARRET.npy")
+    unique_arret = np.load("models/LIBELLE_ARRET.npy")
     for arret in unique_arret:
         df_filter = df[df["LIBELLE_ARRET"] == arret]
         assert (len(df_filter) >= 45)
